@@ -29,18 +29,18 @@ execute_rails_migration () {
 }
 
 assets_precompile () {
-    cd /cosmetology && nohup bundle exec rake assets:precompile &
+    cd /project && nohup bundle exec rake assets:precompile &
 }
 
 generate_docs () {
-    cd /cosmetology && bundle exec rake rswag:specs:swaggerize
+    cd /project && bundle exec rake rswag:specs:swaggerize
 }
 
 start_rails_app () {
     echo 'Starting Rails app...'
     if [ $RAILS_ENV = 'test' ]
     then bundle exec rails console
-    else exec /usr/bin/supervisord -c /cosmetology/config/supervisord/production
+    else exec /usr/bin/supervisord -c /project/config/supervisord/production
     fi
 }
 

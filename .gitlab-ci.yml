@@ -1,0 +1,81 @@
+stages:
+- test
+- build
+- deploy
+
+# test stage
+test:
+  image: ruby:2.7.4
+  stage: test
+  cache:
+    key:
+      files:
+      - Gemfile.lock
+      prefix: ${CI_JOB_NAME}
+    paths:
+      - vendor/ruby
+  services:
+    - postgres:12
+    - redis:latest
+  variables:
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
+    POSTGRES_DB: rail_api_template-db
+    POSTGRES_USER: rail_api_template-user
+    POSTGRES_PASSWORD: rail_api_template-pass
+    RAILS_ENV: test
+    REDIS_URL: redis://redis:6379/12
+    JWT_SECRET_KEY: mega-secret
+    IS_DOCKER: 1
+    NUMBER_OF_ATTEMPTS: 5
+    UNBLOCK_TIME: 5
+    TEMP_CONFIRMATION_CODE: 11111
+  before_script:
+    - apt-get update -qq && apt-get install -yqq nodejs
+    - gem install bundler -v 2.2.30 --no-document
+    - bundle install --jobs $(nproc) --path vendor/ruby
+    - bundle exec rails db:migrate:reset
+  script:
+    - bundle exec rspec
+    - bundle exec rubocop
+
+.build:
+  stage: build
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  before_script:
+    - docker login $REGISTRY_HOST -u $REGISTRY_USERNAME -p $REGISTRY_TOKEN
+  script:
+    - docker build . -t $REGISTRY_IMAGE:$REGISTRY_IMAGE_TAG --build-arg BUNDLE_WITHOUT=development:test
+    - docker push $REGISTRY_IMAGE
+
+build-testing:
+  extends: .build
+  only:
+    - testing
+  except:
+    - tags
+  variables:
+    REGISTRY_IMAGE_TAG: testing
+
+.deploy:
+  stage: deploy
+  script:
+  - sh setup_ssh.sh
+  - ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
+  - scp $DOCKER_COMPOSE $DEPLOY_USER@$DEPLOY_HOST:$APP_PATH/docker-compose.yml
+  - ssh $DEPLOY_USER@$DEPLOY_HOST "docker pull $REGISTRY_IMAGE:$REGISTRY_IMAGE_TAG && IMAGE_TAG=$REGISTRY_IMAGE_TAG docker-compose -f $APP_PATH/docker-compose.yml up -d $APP_NAME && docker image prune -af"
+
+deploy-testing:
+  extends: .deploy
+  only:
+    - testing
+  except:
+    - tags
+  variables:
+    DEPLOY_HOST: "${TESTING_DEPLOY_HOST}"
+    REGISTRY_IMAGE_TAG: testing
+    APP_PATH: /var/apps/"${APP_NAME}"
+    DOCKER_COMPOSE: docker/compose/testing.yml
+    DEPLOY_USER: root
