@@ -1,44 +1,43 @@
-FROM ruby:2.7.4
+FROM ruby:2.7.4-alpine
 
-ARG BUNDLE_WITHOUT
-ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
+ENV BUNDLER_VERSION=2.0.2
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Check-Valid-Until=false update -qq && \
-    DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -qq -y && \
-    DEBIAN_FRONTEND=noninteractive apt update -qq -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -qq -y \
-    build-essential \
-    libpq-dev \
-    supervisor \
-    curl \
-    postgresql-client \
-    htop \
-    imagemagick \
-    mc \
-    unzip \
-    wget \
-    tar \
-    openssl \
-    nano \
-    cron \
-    lsof
+RUN apk add --update --no-cache \
+      binutils-gold \
+      build-base \
+      curl \
+      file \
+      g++ \
+      gcc \
+      git \
+      less \
+      libstdc++ \
+      libffi-dev \
+      libc-dev \
+      linux-headers \
+      libxml2-dev \
+      libxslt-dev \
+      libgcrypt-dev \
+      make \
+      netcat-openbsd \
+      nodejs \
+      openssl \
+      pkgconfig \
+      postgresql-dev \
+      python3 \
+      tzdata \
+      yarn
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y -qq nodejs && \
-    npm install --global yarn
+RUN gem install bundler -v 2.0.2
 
-RUN curl -o /usr/local/bin/waitforit -sSL \
-    https://github.com/maxcnunes/waitforit/releases/download/v2.4.1/waitforit-linux_amd64 && \
-    chmod +x /usr/local/bin/waitforit
+WORKDIR /app
 
-RUN mkdir -p /project/tmp/pids
+COPY Gemfile Gemfile.lock ./
 
-WORKDIR /project
-COPY Gemfile* /project/
-RUN gem install bundler:2.2.30 && bundle install --jobs=8
+RUN bundle config build.nokogiri --use-system-libraries
 
-COPY . /project
+RUN bundle check || bundle install
 
-CMD ["./docker/src/start.sh"]
+COPY . ./
 
-EXPOSE 3000
+ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
