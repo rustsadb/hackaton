@@ -14,5 +14,11 @@ module Api
 
       render_json(result, serializer: :single_serializer)
     end
+
+    def destroy
+      Task.find(params[:id]).destroy
+
+      render_ok
+    end
   end
 end

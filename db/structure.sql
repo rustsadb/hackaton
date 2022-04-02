@@ -116,7 +116,7 @@ CREATE TABLE public.tasks (
     id bigint NOT NULL,
     name character varying,
     important integer,
-    project_id bigint NOT NULL,
+    stage_id bigint NOT NULL,
     description character varying,
     deadline timestamp without time zone,
     created_at timestamp(6) without time zone NOT NULL,
@@ -309,10 +309,10 @@ CREATE INDEX index_stages_on_project_id ON public.stages USING btree (project_id
 
 
 --
--- Name: index_tasks_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_tasks_on_stage_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_tasks_on_project_id ON public.tasks USING btree (project_id);
+CREATE INDEX index_tasks_on_stage_id ON public.tasks USING btree (stage_id);
 
 
 --
@@ -330,11 +330,11 @@ CREATE INDEX index_user_projects_on_user_id ON public.user_projects USING btree 
 
 
 --
--- Name: tasks fk_rails_02e851e3b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: tasks fk_rails_05dc97c947; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tasks
-    ADD CONSTRAINT fk_rails_02e851e3b7 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+    ADD CONSTRAINT fk_rails_05dc97c947 FOREIGN KEY (stage_id) REFERENCES public.stages(id);
 
 
 --
@@ -372,7 +372,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220402122826'),
 ('20220402150314'),
 ('20220402160234'),
-('20220402161602'),
-('20220402174303');
+('20220402174303'),
+('20220402194234');
 
 

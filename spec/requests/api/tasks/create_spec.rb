@@ -12,18 +12,19 @@ RSpec.describe 'api/tasks', type: :request do
         type: :object,
         properties: {
           name: { type: :string, example: 'lol' },
-          project_id: { type: :integer, example: 1 },
+          stage_id: { type: :integer, example: 1 },
           description: { type: :string, example: 'lol' },
           deadline: { type: :string, example: '12-22-2000' },
           important: { type: :string, example: 1 }
         },
-        required: [ 'name', 'project_id']
+        required: [ 'name', 'stage_id']
       }
 
       let!(:project) { create(:project, :random_documentation) }
+      let!(:stage) { create(:stage, project_id: project.id) }
 
       response '200', 'project created' do
-        let(:data) { { name: 'lol', project_id: project.id } }
+        let(:data) { { name: 'lol', stage_id: stage.id } }
 
         run_test! do |response|
           expect(parse_response_body(response.body)['data']['id']).to eq Task.last.id.to_s
