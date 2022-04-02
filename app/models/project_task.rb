@@ -1,2 +1,0 @@
-class ProjectTask < ApplicationRecord
-end

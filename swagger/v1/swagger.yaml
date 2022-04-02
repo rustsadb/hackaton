@@ -26,6 +26,99 @@ paths:
                   example: lol
               required:
               - name
+  "/api/projects/{id}":
+    delete:
+      summary: Delete project
+      tags:
+      - Projects
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: stage deleted
+        '404':
+          description: not found
+  "/api/stages":
+    post:
+      summary: Create stages
+      tags:
+      - Stages
+      parameters: []
+      responses:
+        '200':
+          description: project created
+        '422':
+          description: params error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: lol
+                project_id:
+                  type: integer
+                  example: 1
+              required:
+              - name
+              - project_id
+  "/api/stages/{id}":
+    delete:
+      summary: Delete stage
+      tags:
+      - Stages
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: stage deleted
+        '404':
+          description: not found
+  "/api/tasks":
+    post:
+      summary: Create task
+      tags:
+      - Tasks
+      parameters: []
+      responses:
+        '200':
+          description: project created
+        '422':
+          description: params error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: lol
+                project_id:
+                  type: integer
+                  example: 1
+                description:
+                  type: string
+                  example: lol
+                deadline:
+                  type: string
+                  example: 12-22-2000
+                important:
+                  type: string
+                  example: 1
+              required:
+              - name
+              - project_id
   "/api/users":
     post:
       summary: Create user

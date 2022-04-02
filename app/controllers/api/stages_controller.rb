@@ -16,7 +16,7 @@ module Api
     end
 
     def destroy
-      User.find(params[:id]).destroy
+      Stage.find(params[:id]).destroy
 
       render_ok
     end

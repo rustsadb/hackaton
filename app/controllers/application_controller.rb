@@ -6,4 +6,12 @@ class ApplicationController < ActionController::API
   include ErrorsHandler
   include JwtAuthorizable
   require 'json_web_token'
+
+  before_action :set_locale
+
+  private
+
+  def set_locale
+    I18n.locale = request.headers['User-Locale'] || I18n.default_locale
+  end
 end
