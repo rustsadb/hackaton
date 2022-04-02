@@ -4,6 +4,28 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/projects":
+    post:
+      summary: Create project
+      tags:
+      - Projects
+      parameters: []
+      responses:
+        '200':
+          description: project created
+        '422':
+          description: params error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: lol
+              required:
+              - name
   "/api/users":
     post:
       summary: Create user
@@ -26,6 +48,34 @@ paths:
                   example: 79781234567
               required:
               - phone_number
+  "/api/sessions":
+    post:
+      summary: Login user
+      tags:
+      - User login
+      parameters: []
+      responses:
+        '200':
+          description: user logged in
+        '401':
+          description: auth error
+        '422':
+          description: record not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: integer
+                  example: 79781234567
+                password:
+                  type: string
+                  example: my_password
+              required:
+              - phone_number
+              - password
   "/api/registration_complete":
     post:
       summary: Complete user registration

@@ -15,4 +15,12 @@ ServicesContainer = Dry::Container::Namespace.new('services') do
   namespace(:projects) do
     register(:create) { Projects::Create.new }
   end
+
+  namespace(:tasks) do
+    register(:create) { Tasks::Create.new }
+  end
+
+  namespace(:stages) do
+    register(:create) { Stages::Create.new }
+  end
 end

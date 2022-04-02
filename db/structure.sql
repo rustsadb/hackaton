@@ -77,6 +77,73 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: stages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stages (
+    id bigint NOT NULL,
+    name character varying,
+    project_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: stages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.stages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.stages_id_seq OWNED BY public.stages.id;
+
+
+--
+-- Name: tasks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tasks (
+    id bigint NOT NULL,
+    name character varying,
+    important integer,
+    project_id bigint NOT NULL,
+    description character varying,
+    deadline timestamp without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: tasks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.tasks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tasks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
+
+
+--
 -- Name: user_projects; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -151,6 +218,20 @@ ALTER TABLE ONLY public.projects ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
+-- Name: stages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stages ALTER COLUMN id SET DEFAULT nextval('public.stages_id_seq'::regclass);
+
+
+--
+-- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+
+
+--
 -- Name: user_projects id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -189,6 +270,22 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: stages stages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stages
+    ADD CONSTRAINT stages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: user_projects user_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -205,6 +302,20 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_stages_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stages_on_project_id ON public.stages USING btree (project_id);
+
+
+--
+-- Name: index_tasks_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tasks_on_project_id ON public.tasks USING btree (project_id);
+
+
+--
 -- Name: index_user_projects_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -216,6 +327,22 @@ CREATE INDEX index_user_projects_on_project_id ON public.user_projects USING btr
 --
 
 CREATE INDEX index_user_projects_on_user_id ON public.user_projects USING btree (user_id);
+
+
+--
+-- Name: tasks fk_rails_02e851e3b7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tasks
+    ADD CONSTRAINT fk_rails_02e851e3b7 FOREIGN KEY (project_id) REFERENCES public.projects(id);
+
+
+--
+-- Name: stages fk_rails_420c4b0e94; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stages
+    ADD CONSTRAINT fk_rails_420c4b0e94 FOREIGN KEY (project_id) REFERENCES public.projects(id);
 
 
 --
@@ -244,6 +371,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220402094801'),
 ('20220402122826'),
 ('20220402150314'),
-('20220402160234');
+('20220402160234'),
+('20220402161602'),
+('20220402174303');
 
 

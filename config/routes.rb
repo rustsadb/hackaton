@@ -7,5 +7,7 @@
     resources :sessions, only: :create
     post '/registration_complete', to: 'users#registration_complete'
     resources :projects
+    resources :tasks
+    resources :stages
   end
 end

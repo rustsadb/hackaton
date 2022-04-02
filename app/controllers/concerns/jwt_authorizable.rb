@@ -6,8 +6,8 @@ module JwtAuthorizable
   included do
     include DI[jwt_validate: 'services.tokens.validate']
 
-    before_action :validate_token,
-                  except: %i[create registration_complete]
+    # before_action :validate_token,
+    #               except: %i[create registration_complete]
   end
 
   def validate_token
