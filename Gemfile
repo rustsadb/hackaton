@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.4'
 
 gem 'bcrypt', '~> 3.1.7'                    # Use Active Model has_secure_password
+gem 'aasm'                                  # Library for adding finite state machines to Ruby classes
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'                          # Shim to load environment variables from .env into ENV in development.
 gem 'dry-auto_inject'                       # Low-impact dependency injection and resolution support for classes
@@ -22,6 +23,8 @@ gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'redis'                                 # Use Redis adapter to run Action Cable in production
 gem 'rspec'
+gem 'rspec_api_documentation'
+gem 'pry'                                   # Powerful alternative to the standard IRB shell for Ruby
 gem 'rspec-rails'
 gem 'rswag'
 gem 'sidekiq'

@@ -1,43 +1,11 @@
-FROM ruby:2.7.4-alpine
+FROM ruby:2.7.4
 
-ENV BUNDLER_VERSION=2.0.2
-
-RUN apk add --update --no-cache \
-      binutils-gold \
-      build-base \
-      curl \
-      file \
-      g++ \
-      gcc \
-      git \
-      less \
-      libstdc++ \
-      libffi-dev \
-      libc-dev \
-      linux-headers \
-      libxml2-dev \
-      libxslt-dev \
-      libgcrypt-dev \
-      make \
-      netcat-openbsd \
-      nodejs \
-      openssl \
-      pkgconfig \
-      postgresql-dev \
-      python3 \
-      tzdata \
-      yarn
-
-RUN gem install bundler -v 2.0.2
-
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 WORKDIR /app
-
-COPY Gemfile Gemfile.lock ./
-
-RUN bundle config build.nokogiri --use-system-libraries
-
-RUN bundle check || bundle install
+COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
+RUN bundle install
 
 COPY . ./
-
+# Add a script to be executed every time the container starts.
 ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
