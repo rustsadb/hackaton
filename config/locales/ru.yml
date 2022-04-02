@@ -1,0 +1,125 @@
+ru:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: Запись невалидна
+
+    models:
+      deleted: Удалено
+      article:
+        one: cтатья
+        other: cтатьи
+      program:
+        one: программа
+        other: программы
+
+  dry_validation:
+    errors:
+      key?:
+        failure: отсутствует
+      gteq?:
+        failure: Ожидалось минимум %{num}
+      lteq?:
+        failure: Ожидалось максимум %{num}
+      min_size?:
+        failure: Ожидалось минимум %{num} символов
+      max_size?:
+        failure: Ожидалось максимум %{num} символов
+      included_in?:
+        failure: Недопустимое значение
+      int?:
+        failure: Ожидалось число
+      str?:
+        failure: Ожидалась строка
+      bool?:
+        failure: Ожидалось булевское значение
+      date?:
+        failure: Ожидалась дата
+      array?:
+        failure: Ожидался массив
+      hash?:
+        failure: Ожидался хэш
+
+  api:
+    metadata:
+      purchase: Покупка %{model} %{title}
+      incoming: Зачисление
+      purchase_with_only_model_title: "%{model} %{title}"
+    errors:
+      authentication: Ошибка аутентификации.
+      record_not_found: Запись не найдена.
+      all_attempts_used: Использованы все попытки.
+      time_not_passed: Время не прошло
+      access_forbidden: Доступ запрещен.
+      conflict: Конфликт.
+      incorrect_code: Неверный код
+      payment: Ошибка оплаты
+      consultation_needed: Требуется консультация врача!
+      messages:
+        not_logged_in: Необходимо авторизироваться
+        record_not_exists: Запись не существует
+        attempts_used: Все попытки были использованы
+        time_has_not_passed: Необходимое количество времени еще не прошло
+        skin_procedure_status: Такого статуса не существует
+        not_email_format: Не верный форматы почты
+        email_not_unique: Пользователь с такой почтой уже существует
+        min_birthday: Пользователь должен быть старше 18 лет
+        not_image_type: Неподдерживаемый тип файла
+        not_video_type: Неподдерживаемый тип файла
+        incorrect_password: Неправильный пароль
+        incorrect_password_confirmation: Пароли не совпадают
+        access_forbidden: Доступ к запрошенному ресурсу запрещен
+        attempts_left: Осталось попыток %{attempts}
+        incorrect_login_password: Неверный логин или пароль
+        user_not_registred: Пользователь не зарегистрирован
+        incorrect_recovery_code: Неправильный код подтверждения
+        incorrect_size: Размер файла слишком большой
+        phone_number_not_unique: Пользователь с таким номером уже существует
+        feedback_empty_string: Пустое сообщение
+        feedback_string_size_error: Недопустимый размер сообщения
+        empty_array: Нельзя передать пустой массив
+        array_error: Неверные значения массива
+        missing_updated_parameters: Отсутствуют обновляемые атрибуты
+        phone_number_and_email_blank: Необходимо ввести номер телефона или почту
+        has_invalid_format: Неверный формат
+        wrong_birthday: Неверная дата рождения
+        wrong_number_of_digits:
+          phone_number: Номер телефона должен содержать от 9 до 15 цифр
+          confirmation_code: Код подтверждения должен содержать 5 цифр
+          recovery_code: Код восстановления должен содержать 4 цифры
+        already_exist: Запись уже существует
+        model_cant_be_liked: Данный объект не может быть добавлен в избранное
+        none_commentable_object: Данный объект нельзя комментировать
+        item_type_not_exists: Не существует типа %{type} с выбором %{choice}
+        questionnaire_not_complete: Опрос не пройдет до конца
+        missing_introductory: Отсутствует ознакомительный фрагмент
+        wrong_choices_to_show: Введены неверные элементы условия показа рекламы
+        wrong_age: Неверный возраст
+        recommendation_missing: Отсутствуют рекомендации программы для ежедневного ухода
+        repeated_program_missing: Не выбрана повторяемая программа
+        actions_missing: Остутствует информация о блоках утро/вечер
+        requirement_missing: Поле Вам потребуется не должно быть пустым
+        incorrect_section_type: Неверный тип выбранной программы
+        incorrect_url: Неверный формат ссылки
+        extra_url: Лишняя внешняя ссылка
+        missing_id: Отсутствует статья
+        missing_link_type: Необходимо указать тип связи
+        missing_url: Необходимо указать внешнюю ссылку
+        extra_id: Статья не требуется
+        exclusive_options: Взаимоисключащие параметры
+        not_enough_money: Недостаточно средств
+        consultation_needed: В результате диагностики рекомендовано обратиться к врачу
+        missing_cosmopass_view_section_parameters: Отсутствуют дополнительные параметры раздела для показа
+        incorrect_cosmopass_view_section_parameters: Неверные значения для дополнительных параметров раздела для показа
+        wrong_price_or_gift_type: Цена статьи не может быть больше 0, если условие показа не за деньги
+
+    cosmopass:
+      fatness_with_normal_skin: Ошибка, вы выбрали толстую кожу вместе с тонкой или нормальной
+      normal_with_black_spots:  Ошибка, вы выбрали нормальную или сухую кожу вместе с черными точками
+      normal_with_inflammatory_acne: Ошибка, вы выбрали нормальную или сухую кожу вместе с воспалительными угрями
+      dryness: Ошибка, вы выбрали умеренную сухость, но в типе коже выбрали иной вариант
+      sebum_deficient_without_normal: Ошибка, вы выбрали себодифицитную сухость вместе с дефектной кожей
+      annoyed_with_sensitive: Ошибка, вы выбрали не раздраженную кожу вместе с повышенной чувствительностью
+      freckles_not_bother_and_freckles_correction: Ошибка, вы выбрали весншуки не беспокоят и коррекцию веснушек
+      not_bother_with_any: Ошибка, вы выбрали не беспокоит с противоречащим значением
+      more_then_20_with_any: Ошибка, вы выбрали больше 20 с противоречащим значением
