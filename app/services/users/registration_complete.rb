@@ -2,7 +2,6 @@
 
 module Users
   class RegistrationComplete
-
     def call(phone_number, params)
       user = User.find_by!(phone_number: phone_number)
       update_user(user, params)
