@@ -1,0 +1,79 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/users":
+    post:
+      summary: Create user
+      tags:
+      - User registration
+      parameters: []
+      responses:
+        '200':
+          description: user created
+        '422':
+          description: params error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: integer
+                  example: 79781234567
+              required:
+              - phone_number
+  "/api/registration_complete":
+    post:
+      summary: Complete user registration
+      tags:
+      - User registration
+      parameters: []
+      responses:
+        '200':
+          description: user registred
+        '422':
+          description: params error
+        '404':
+          description: user not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                avatar_id:
+                  type: integer
+                phone_number:
+                  type: integer
+                  example: 79781234567
+                password:
+                  type: string
+                  example: my_password
+                name:
+                  type: string
+                  example: Danil
+                email:
+                  type: string
+                  example: Test@mail.ru
+                gender:
+                  type: string
+                  example: female
+              required:
+              - phone_number
+              - password, name
+components:
+  securitySchemes:
+    Bearer:
+      description: JWT key necessary to use API calls
+      type: apiKey
+      name: Authorization
+      in: header
+servers:
+- url: http://localhost:3000
+  variables:
+    defaultHost:
+      default: http://localhost:3000

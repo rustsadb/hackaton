@@ -6,4 +6,11 @@ class User < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   has_secure_password validations: false
+
+  MALE = 'male'
+  FEMALE = 'female'
+
+  def self.genders_const_array
+    [MALE, FEMALE]
+  end
 end

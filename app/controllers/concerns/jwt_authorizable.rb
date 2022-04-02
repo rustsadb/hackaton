@@ -7,7 +7,7 @@ module JwtAuthorizable
     include DI[jwt_validate: 'services.tokens.validate']
 
     before_action :validate_token,
-                  except: %i[create send_recovery confirm_recovery_code confirmation registration_complete confrim_recovery_code change_password]
+                  except: %i[create registration_complete ]
   end
 
   def validate_token

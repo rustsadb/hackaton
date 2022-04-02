@@ -9,6 +9,16 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: genders; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.genders AS ENUM (
+    'male',
+    'female'
+);
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -43,7 +53,10 @@ CREATE TABLE public.users (
     phone_number bigint,
     password_digest character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    name character varying,
+    email character varying,
+    gender public.genders
 );
 
 
@@ -104,6 +117,7 @@ ALTER TABLE ONLY public.users
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20220402094801');
+('20220402094801'),
+('20220402122826');
 
 
