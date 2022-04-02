@@ -7,4 +7,8 @@ FormsContainer = Dry::Container::Namespace.new('forms') do
   namespace(:sessions) do
     register(:create) { Sessions::CreateForm }
   end
+
+  namespace(:projects) do
+    register(:create) { Projects::CreateForm }
+  end
 end

@@ -11,4 +11,8 @@ ServicesContainer = Dry::Container::Namespace.new('services') do
   namespace(:tokens) do
     register(:validate) { Tokens::Validate.new }
   end
+
+  namespace(:projects) do
+    register(:create) { Projects::Create.new }
+  end
 end

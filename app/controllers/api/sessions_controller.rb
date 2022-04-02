@@ -2,7 +2,8 @@
 
 module Api
   class SessionsController < ApplicationController
-    include DI[log_in: 'services.sessions.create',
+    include DI[
+               log_in: 'services.sessions.create',
                create_form: 'forms.sessions.create',
                create_jwt: 'services.users.create_jwt',
                serializer: 'serializers.users.single'
