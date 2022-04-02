@@ -5,4 +5,7 @@ class ProjectSingleSerializer
 
   set_id :id
   attributes :name
+  attributes :stages do |project, params|
+    params[:presenter].project_stages
+  end
 end

@@ -26,6 +26,13 @@ paths:
                   example: lol
               required:
               - name
+    get:
+      summary: Show projects
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: project list
   "/api/projects/{id}":
     delete:
       summary: Delete project
@@ -40,6 +47,21 @@ paths:
       responses:
         '200':
           description: stage deleted
+        '404':
+          description: not found
+    get:
+      summary: Show project
+      tags:
+      - Projects
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 'project showed '
         '404':
           description: not found
   "/api/stages":
@@ -104,7 +126,7 @@ paths:
                 name:
                   type: string
                   example: lol
-                project_id:
+                stage_id:
                   type: integer
                   example: 1
                 description:
@@ -118,7 +140,23 @@ paths:
                   example: 1
               required:
               - name
-              - project_id
+              - stage_id
+  "/api/tasks/{id}":
+    delete:
+      summary: Delete task
+      tags:
+      - Tasks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: task deleted
+        '404':
+          description: not found
   "/api/users":
     post:
       summary: Create user
