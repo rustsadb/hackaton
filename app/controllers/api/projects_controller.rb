@@ -19,7 +19,7 @@ module Api
       valid_params = validate_with(create_form, params)
       result = create_service.(valid_params)
 
-      render_json(result, serializer: :single_serializer)
+      render_json(result, serializer: :single_serializer, options: { params: { presenter: presenter.new(result) } })
     end
 
     def show

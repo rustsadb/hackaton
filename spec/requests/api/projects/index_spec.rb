@@ -14,7 +14,7 @@ RSpec.describe 'api/projects', type: :request do
 
       response '200', 'project list' do
         run_test! do |response|
-          expect(parse_response_body(response.body)['data'].pluck('id')).to eq Project.all.size
+          expect(parse_response_body(response.body)['data'].pluck('id').size).to eq Project.all.size
         end
       end
     end

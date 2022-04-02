@@ -14,6 +14,7 @@ FormsContainer = Dry::Container::Namespace.new('forms') do
 
   namespace(:tasks) do
     register(:create) { Tasks::CreateForm }
+    register(:update) { Tasks::UpdateForm }
   end
 
   namespace(:stages) do

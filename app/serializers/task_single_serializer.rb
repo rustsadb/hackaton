@@ -4,5 +4,5 @@ class TaskSingleSerializer
   include JSONAPI::Serializer
 
   set_id :id
-  attributes :name, :description, :deadline, :important
+  attributes :name, :description, :deadline, :important, :stage_id
 end
